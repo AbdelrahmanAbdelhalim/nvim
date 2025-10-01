@@ -30,10 +30,10 @@ return {
 
       lspconfig.pyright.setup({})
 	  lspconfig.gopls.setup({})
-      lspconfig.omnisharp.setup({})
       lspconfig.terraformls.setup({})
       lspconfig.texlab.setup({})
-      lspconfig.clangd.setup({})
+	  lspconfig.clangd.setup({})
+	  lspconfig.lua_ls.setup({})
     end,
   },
 	require("flutter-tools").setup {} -- use defaults
