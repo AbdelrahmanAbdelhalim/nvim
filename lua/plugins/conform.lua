@@ -6,6 +6,7 @@ return {
 			rust = { "rustfmt" },
 			python = { "isort", "black" },
 			javascript = { { "prettierd", "prettier" } },
+			tex = { "latexindent" },
 		},
 		format_on_save = {
 			timeout_ms = 500,
