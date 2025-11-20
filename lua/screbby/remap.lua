@@ -7,7 +7,6 @@ vim.keymap.set("v", "<leader>a", "^")
 vim.keymap.set("n", "<leader>;", "$")
 vim.keymap.set("v", "<leader>;", "$")
 
-
 vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 vim.keymap.set("n", "<leader>h", "<C-w>h")
@@ -22,8 +21,8 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Deleting Doesn't insert the deleted string in the copy buffer (Beautiful)
-vim.keymap.set("x", "p", "\"_dp")
+vim.keymap.set("x", "p", '"_dp')
 
-vim.keymap.set('n', '<leader>tt', '<CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('t', '$', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('v', '<leader>y', '"+y')
+vim.keymap.set("n", "<leader>tt", '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set("t", "$", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set("v", "<leader>y", '"+y')

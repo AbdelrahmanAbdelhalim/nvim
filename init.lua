@@ -1,4 +1,5 @@
 require("screbby")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -33,6 +34,7 @@ require("FTerm").setup({
 	},
 })
 
+<<<<<<< Updated upstream
 require("image").setup({
 	backend = "kitty", -- or "ueberzug" or "sixel"
 	processor = "magick_cli", -- or "magick_rock"
@@ -72,3 +74,10 @@ require("image").setup({
 	tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
 	hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
 })
+=======
+-- set the file explorer view
+vim.g.netrw_liststyle = 1
+vim.g.netrw_sizestyle = "h"
+vim.g.netrw_list_hide = "^\\.$"
+vim.opt.clipboard = "unnamedplus"
+>>>>>>> Stashed changes
