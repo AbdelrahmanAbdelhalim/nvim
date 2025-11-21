@@ -32,6 +32,15 @@ require("FTerm").setup({
 	},
 })
 
+require("nvim-treesitter.configs").setup({
+	highlight = {
+		enable = true,
+	},
+	indent = {
+		enable = true,
+	},
+})
+
 -- You need to define the colors for these highlights manually
 -- or link them to existing ones in your theme.
 -- Adjust 'guibg' to match your colorscheme's "darker" shade.
@@ -43,3 +52,4 @@ vim.g.netrw_liststyle = 1
 vim.g.netrw_sizestyle = "h"
 vim.g.netrw_list_hide = "^\\.$"
 vim.opt.clipboard = "unnamedplus"
+vim.g.netrw_sort_by = "size"
