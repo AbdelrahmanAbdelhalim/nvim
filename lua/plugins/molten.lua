@@ -47,17 +47,13 @@ return {
 					require("notebook-navigator").move_cell("u")
 				end,
 			},
-			{ "<leader>r", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-			{ "<leader>t", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+			{ "<leader>rr", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
+			{ "<leader>rn", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
 		},
 		dependencies = {
 			"echasnovski/mini.comment",
 			"anuvyklack/hydra.nvim",
 		},
 		event = "VeryLazy",
-	},
-	{
-		"hkupty/iron.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 }
