@@ -32,25 +32,6 @@ require("FTerm").setup({
 	},
 })
 
-require("headlines").setup({
-	markdown = {
-		-- This is the "Cell" background highlight
-		codeblock_highlight = "CodeBlock",
-		-- Dashes for cell boundaries
-		dash_highlight = "Dash",
-		dash_string = "-",
-		-- You might want to disable header highlights to keep it clean
-		headline_highlights = false,
-	},
-	-- If you use Quarto (.qmd) via Jupytext
-	quarto = {
-		codeblock_highlight = "CodeBlock",
-		dash_highlight = "Dash",
-		dash_string = "-",
-		headline_highlights = false,
-	},
-})
-
 -- You need to define the colors for these highlights manually
 -- or link them to existing ones in your theme.
 -- Adjust 'guibg' to match your colorscheme's "darker" shade.
