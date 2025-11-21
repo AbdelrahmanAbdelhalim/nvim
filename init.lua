@@ -18,8 +18,6 @@ vim.diagnostic.config({
 
 require("lazy").setup("plugins") -- This tells Lazy to load plugins from the 'plugins' directory
 
-require("lazy").setup({})
-
 -- Configs and Files requiring Telescope
 local cp = require("screbby.cp")
 vim.keymap.set("n", "<leader>cp", function()
@@ -34,45 +32,30 @@ require("FTerm").setup({
 	},
 })
 
-require("image").setup({
-	backend = "kitty", -- or "ueberzug" or "sixel"
-	processor = "magick_cli", -- or "magick_rock"
-	integrations = {
-		markdown = {
-			enabled = true,
-			clear_in_insert_mode = false,
-			download_remote_images = true,
-			only_render_image_at_cursor = false,
-			only_render_image_at_cursor_mode = "popup", -- or "inline"
-			floating_windows = false, -- if true, images will be rendered in floating markdown windows
-			filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-		},
-		neorg = {
-			enabled = true,
-			filetypes = { "norg" },
-		},
-		typst = {
-			enabled = true,
-			filetypes = { "typst" },
-		},
-		html = {
-			enabled = false,
-		},
-		css = {
-			enabled = false,
-		},
+require("headlines").setup({
+	markdown = {
+		-- This is the "Cell" background highlight
+		codeblock_highlight = "CodeBlock",
+		-- Dashes for cell boundaries
+		dash_highlight = "Dash",
+		dash_string = "-",
+		-- You might want to disable header highlights to keep it clean
+		headline_highlights = false,
 	},
-	max_width = nil,
-	max_height = nil,
-	max_width_window_percentage = nil,
-	max_height_window_percentage = 50,
-	scale_factor = 1.0,
-	window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
-	window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "snacks_notif", "scrollview", "scrollview_sign" },
-	editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-	tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-	hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
+	-- If you use Quarto (.qmd) via Jupytext
+	quarto = {
+		codeblock_highlight = "CodeBlock",
+		dash_highlight = "Dash",
+		dash_string = "-",
+		headline_highlights = false,
+	},
 })
+
+-- You need to define the colors for these highlights manually
+-- or link them to existing ones in your theme.
+-- Adjust 'guibg' to match your colorscheme's "darker" shade.
+vim.api.nvim_set_hl(0, "CodeBlock", { bg = "#1f2335" }) -- Example dark background
+vim.api.nvim_set_hl(0, "Dash", { fg = "#3b4261", bold = true })
 
 -- set the file explorer view
 vim.g.netrw_liststyle = 1
