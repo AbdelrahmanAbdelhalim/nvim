@@ -75,8 +75,8 @@ return {
 			lspconfig.texlab.setup({})
 			lspconfig.clangd.setup({})
 			lspconfig.lua_ls.setup({})
-			lspconfig.ts_ls.setup({})
 			lspconfig.zls.setup({})
+			lspconfig.vtsls.setup({})
 		end,
 	},
 }
