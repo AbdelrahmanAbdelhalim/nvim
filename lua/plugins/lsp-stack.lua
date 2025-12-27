@@ -1,82 +1,70 @@
--- File: ~/.config/nvim/lua/plugins/lsp_control.lua
-
 return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"nvim-tree/nvim-web-devicons",
+			-- No new dependencies added
 		},
 		config = function()
-			-- This ensures Mason installs the server executables
 			require("mason").setup({})
-			local lspconfig = require("lspconfig")
 
-			lspconfig.lua_ls.setup({
+			-- 1. Use the new global config to link your existing blink.cmp
+			-- This is the "correct" way to fix completion without the old .setup()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			vim.lsp.config("*", { capabilities = capabilities })
+
+			-- 2. lua_ls Configuration
+			vim.lsp.config("lua_ls", {
 				settings = {
-					workspace = {
-						checkThirdParty = false, -- Disable checking for third-party libraries for better performance
-						library = {
-							-- The path to your Neovim config and the runtime files
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.stdpath("config") .. "/lua"] = true,
+					Lua = {
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+								[vim.fn.stdpath("config") .. "/lua"] = true,
+							},
 						},
-					},
-					diagnostics = {
-						globals = { "vim" },
+						diagnostics = { globals = { "vim" } },
 					},
 				},
 			})
+			vim.lsp.enable("lua_ls")
 
-			-- lspconfig.rust_analyzer.setup({
-			-- 	settings = {
-			-- 		["rust-analyzer"] = {
-			--
-			-- 			-- Enable inlay hints
-			-- 			inlayHints = {
-			-- 				enable = true,
-			--
-			-- 				-- Shows type hints for variables
-			-- 				typeHints = {
-			-- 					enable = true,
-			-- 					hideNamedConstructor = false,
-			-- 				},
-			--
-			-- 				-- Shows hints for chained method calls
-			-- 				chainingHints = {
-			-- 					enable = true,
-			-- 				},
-			--
-			-- 				-- Shows parameter name hints for function calls
-			-- 				parameterHints = {
-			-- 					enable = true,
-			-- 				},
-			--
-			-- 				closingBraceHints = {
-			-- 					enable = true,
-			-- 					minLines = 1, -- Only show for blocks longer than 1 line
-			-- 				},
-			-- 			},
-			-- 			-- Other useful settings
-			-- 			check = {
-			-- 				command = "clippy",
-			-- 			},
-			-- 		},
-			-- 	},
-			-- 	on_attach = function(client, bufnr)
-			-- 		local opts = { buffer = bufnr, noremap = true, silent = true }
-			-- 		vim.keymap.set("n", "<leader>d", vim.lsp.buf.hover, opts)
-			-- 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-			-- 	end,
-			-- })
-			lspconfig.pyright.setup({})
-			lspconfig.gopls.setup({})
-			lspconfig.terraformls.setup({})
-			lspconfig.texlab.setup({})
-			lspconfig.clangd.setup({})
-			lspconfig.lua_ls.setup({})
-			lspconfig.zls.setup({})
-			lspconfig.vtsls.setup({})
+			-- 3. Jedi Configuration (Fixing the Pandas/Torch path)
+			vim.lsp.config("jedi_language_server", {
+				init_options = {
+					workspace = {
+						-- Fixed: Absolute path expansion for your venv
+						environmentPath = vim.fn.expand("~/dev/jupyter_setup/molten/bin/python"),
+					},
+				},
+			})
+			vim.lsp.enable("jedi_language_server")
+
+			-- 4. Bulk enable remaining servers
+			local servers_to_enable = {
+				"gopls",
+				"terraformls",
+				"texlab",
+				"clangd",
+				"zls",
+				"vtsls",
+			}
+
+			for _, server in ipairs(servers_to_enable) do
+				vim.lsp.enable(server)
+			end
+
+			-- 5. Global LSP Keybindings (Modern LspAttach way)
+			vim.api.nvim_create_autocmd("LspAttach", {
+				desc = "LSP keybindings and configuration",
+				callback = function(args)
+					local opts = { buffer = args.buf, noremap = true, silent = true }
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+				end,
+			})
 		end,
 	},
 }

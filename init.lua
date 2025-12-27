@@ -41,13 +41,9 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
--- You need to define the colors for these highlights manually
--- or link them to existing ones in your theme.
--- Adjust 'guibg' to match your colorscheme's "darker" shade.
 vim.api.nvim_set_hl(0, "CodeBlock", { bg = "#1f2335" }) -- Example dark background
 vim.api.nvim_set_hl(0, "Dash", { fg = "#3b4261", bold = true })
 
--- set the file explorer view
 vim.g.netrw_liststyle = 1
 vim.g.netrw_sizestyle = "h"
 vim.g.netrw_list_hide = "^\\.$"

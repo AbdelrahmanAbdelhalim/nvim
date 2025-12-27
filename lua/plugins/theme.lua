@@ -7,6 +7,7 @@ return {
 			-- compile = true,
 			-- transparent = false,
 			dimInactive = true,
+			transparent = true,
 			-- terminalColors = true,
 			-- colors = {
 			--   theme = {
