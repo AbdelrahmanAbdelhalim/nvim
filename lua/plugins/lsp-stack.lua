@@ -4,13 +4,11 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"nvim-tree/nvim-web-devicons",
-			-- No new dependencies added
 		},
 		config = function()
 			require("mason").setup({})
 
 			-- 1. Use the new global config to link your existing blink.cmp
-			-- This is the "correct" way to fix completion without the old .setup()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
 
@@ -26,17 +24,39 @@ return {
 							},
 						},
 						diagnostics = { globals = { "vim" } },
+						hint = {
+							enable = true,
+							semicolon = "Disable",
+						},
+						codeLens = {
+							enable = true,
+						},
 					},
 				},
 			})
 			vim.lsp.enable("lua_ls")
 
-			-- 3. Jedi Configuration (Fixing the Pandas/Torch path)
+			-- 3. Jedi Configuration (Enhanced for Pandas/Torch autocomplete)
 			vim.lsp.config("jedi_language_server", {
 				init_options = {
 					workspace = {
-						-- Fixed: Absolute path expansion for your venv
-						environmentPath = vim.fn.expand("~/dev/jupyter_setup/molten/bin/python"),
+						environmentPath = vim.fn.expand("/Users/screbz/dev/jupyter_setup/molten/bin/python"),
+					},
+				},
+				settings = {
+					jedi = {
+						enable = true,
+						startupMessage = true,
+						workspace = {
+							extraPaths = {},
+							symbols = {
+								maxSymbols = -1,
+							},
+						},
+						completion = {
+							disableSnippets = false,
+							resolveEagerly = true,
+						},
 					},
 				},
 			})
@@ -51,7 +71,6 @@ return {
 				"zls",
 				"vtsls",
 			}
-
 			for _, server in ipairs(servers_to_enable) do
 				vim.lsp.enable(server)
 			end
@@ -63,6 +82,9 @@ return {
 					local opts = { buffer = args.buf, noremap = true, silent = true }
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 				end,
 			})
 		end,

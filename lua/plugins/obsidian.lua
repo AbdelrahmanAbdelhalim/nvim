@@ -14,6 +14,7 @@ return {
 				path = "~/dev/Brain/", -- Point to your vault root
 			},
 		},
+		templates = { subdir = "990_Templates" },
 
 		-- Daily Notes Configuration
 		daily_notes = {

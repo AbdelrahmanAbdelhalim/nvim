@@ -41,6 +41,11 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "*.tex",
+	command = "silent !pdflatex main.tex",
+})
+
 vim.api.nvim_set_hl(0, "CodeBlock", { bg = "#1f2335" }) -- Example dark background
 vim.api.nvim_set_hl(0, "Dash", { fg = "#3b4261", bold = true })
 
