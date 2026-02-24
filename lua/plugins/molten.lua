@@ -59,8 +59,11 @@ return {
 					require("notebook-navigator").move_cell("u")
 				end,
 			},
-			{ "<leader>rr", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-			{ "<leader>rn", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+			{ "<leader>mr", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
+			{ "<leader>mn", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+			vim.keymap.set("n", "<leader>mc", function()
+				vim.fn.MoltenDefineCell(vim.fn.line("."), vim.fn.line("."))
+			end, { desc = "Define Molten Cell" }),
 		},
 		dependencies = {
 			"echasnovski/mini.comment",
