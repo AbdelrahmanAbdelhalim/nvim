@@ -70,11 +70,23 @@ return {
 				"clangd",
 				"zls",
 				"vtsls",
+				"basedpyright",
 			}
 			for _, server in ipairs(servers_to_enable) do
 				vim.lsp.enable(server)
 			end
 
+			vim.lsp.config("basedpyright", {
+				settigns = {
+					basedpyright = {
+						analysis = {
+							typeCheckingMode = "basic",
+							diagnosticMode = "openFilesOnly",
+							inlayHints = { callArgumentsName = true, variableTypes = true },
+						},
+					},
+				},
+			})
 			-- 5. Global LSP Keybindings (Modern LspAttach way)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP keybindings and configuration",
