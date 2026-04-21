@@ -11,7 +11,7 @@ return {
 		workspaces = {
 			{
 				name = "KnowledgeBase",
-				path = "~/dev/Brain/", -- Point to your vault root
+				path = "~/dev/notes/", -- Point to your vault root
 			},
 		},
 		templates = { subdir = "990_Templates" },

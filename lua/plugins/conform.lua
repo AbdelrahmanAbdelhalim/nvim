@@ -4,7 +4,7 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			rust = { "rustfmt" },
-			python = { "isort" },
+			python = { "ruff" },
 			javascript = { "prettierd", "prettier" },
 			tex = { "latexindent" },
 			html = { "prettier" },

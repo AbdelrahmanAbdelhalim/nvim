@@ -36,7 +36,7 @@ return {
 			},
 			on_attach = function(client, bufnr)
 				local opts = { buffer = bufnr, noremap = true, silent = true }
-				vim.keymap.set("n", "<leader>d", vim.lsp.buf.hover, opts)
+				-- vim.keymap.set("n", "<leader>d", vim.lsp.buf.hover, opts)
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 			end,
 		},

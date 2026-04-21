@@ -4,8 +4,8 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>a", "^")
 vim.keymap.set("v", "<leader>a", "^")
 
-vim.keymap.set("n", "<leader>;", "$")
-vim.keymap.set("v", "<leader>;", "$")
+vim.keymap.set("n", "<leader>;", "$h")
+vim.keymap.set("v", "<leader>;", "$h")
 
 vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
@@ -13,8 +13,8 @@ vim.keymap.set("n", "<leader>h", "<C-w>h")
 vim.keymap.set("n", "<leader>l", "<C-w>l")
 
 vim.keymap.set("n", "<leader>sf", ":Telescope find_files<CR>")
-
 vim.keymap.set("n", "<leader>ss", ":Telescope live_grep<CR>")
+vim.keymap.set("n", "<leader>sb", ":Telescope current_buffer_fuzzy_find<CR>")
 
 -- Remap to move entire lines in one go up or down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

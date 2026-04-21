@@ -49,6 +49,18 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 vim.api.nvim_set_hl(0, "CodeBlock", { bg = "#1f2335" }) -- Example dark background
 vim.api.nvim_set_hl(0, "Dash", { fg = "#3b4261", bold = true })
 
+-- 1. Disable default mappings to stop the collision
+vim.g.vimtex_mappings_enabled = 0
+local kmap = vim.keymap.set
+
+kmap("n", "<leader>bc", "<cmd>VimtexCompile<cr>", { desc = "VimTeX: Compile" })
+kmap("n", "<leader>bv", "<cmd>VimtexView<cr>", { desc = "VimTeX: View PDF" })
+kmap("n", "<leader>bs", "<cmd>VimtexStop<cr>", { desc = "VimTeX: Stop Compilation" })
+kmap("n", "<leader>be", "<cmd>VimtexErrors<cr>", { desc = "VimTeX: Show Errors" })
+
+vim.g.vimtex_view_method = "zathura" -- Or 'sioyek' / 'skim'
+vim.g.vimtex_compiler_method = "latexmk"
+
 vim.g.netrw_liststyle = 1
 vim.g.netrw_sizestyle = "h"
 vim.g.netrw_list_hide = "^\\.$"
