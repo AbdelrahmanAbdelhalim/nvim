@@ -76,6 +76,19 @@ return {
 				vim.lsp.enable(server)
 			end
 
+			vim.lsp.config("texlab", {
+				settings = {
+					texlab = {
+						diagnostics = {
+							ignoredPatterns = {
+								"marginparwidth",
+								"Overfull",
+							},
+						},
+					},
+				},
+			})
+
 			vim.lsp.config("basedpyright", {
 				settigns = {
 					basedpyright = {
