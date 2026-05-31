@@ -25,5 +25,5 @@ vim.keymap.set("x", "p", '"_dp')
 
 vim.keymap.set("n", "<leader>tt", '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set("t", "$", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>yy", '"+y')
 vim.keymap.set("n", "<leader>ot", ":ObsidianTemplate<CR>", { desc = "Insert Obsidian Template" })

@@ -1,3 +1,4 @@
+vim.env.PATH = vim.fn.expand("~/.local/share/nvim/mason/bin") .. ":" .. vim.env.PATH
 require("screbby")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
