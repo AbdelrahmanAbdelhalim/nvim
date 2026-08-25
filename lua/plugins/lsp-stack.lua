@@ -76,6 +76,28 @@ return {
 				vim.lsp.enable(server)
 			end
 
+			-- 5. gopls Configuration with Semantic Tokens
+			vim.lsp.config("gopls", {
+				settings = {
+					gopls = {
+						semanticTokens = true,
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
+			})
+
 			vim.lsp.config("texlab", {
 				settings = {
 					texlab = {
@@ -100,7 +122,7 @@ return {
 					},
 				},
 			})
-			-- 5. Global LSP Keybindings (Modern LspAttach way)
+			-- 6. Global LSP Keybindings (Modern LspAttach way)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP keybindings and configuration",
 				callback = function(args)
@@ -110,6 +132,11 @@ return {
 					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client and client.supports_method("textDocument/inlayHint") then
+						vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+					end
 				end,
 			})
 		end,

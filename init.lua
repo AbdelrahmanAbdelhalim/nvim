@@ -34,6 +34,7 @@ require("FTerm").setup({
 })
 
 require("nvim-treesitter.configs").setup({
+	ensure_installed = { "go", "gomod", "gowork", "gosum", "lua", "markdown", "markdown_inline" },
 	highlight = {
 		enable = true,
 	},
