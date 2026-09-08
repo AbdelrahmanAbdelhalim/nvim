@@ -34,8 +34,6 @@ return {
 					},
 				},
 			})
-			vim.lsp.enable("lua_ls")
-
 			-- 3. Jedi Configuration (Enhanced for Pandas/Torch autocomplete)
 			vim.lsp.config("jedi_language_server", {
 				init_options = {
@@ -60,23 +58,7 @@ return {
 					},
 				},
 			})
-			vim.lsp.enable("jedi_language_server")
-
-			-- 4. Bulk enable remaining servers
-			local servers_to_enable = {
-				"gopls",
-				"terraformls",
-				"texlab",
-				"clangd",
-				"zls",
-				"vtsls",
-				"basedpyright",
-			}
-			for _, server in ipairs(servers_to_enable) do
-				vim.lsp.enable(server)
-			end
-
-			-- 5. gopls Configuration with Semantic Tokens
+			-- 4. Server-specific configuration
 			vim.lsp.config("gopls", {
 				settings = {
 					gopls = {
@@ -112,7 +94,7 @@ return {
 			})
 
 			vim.lsp.config("basedpyright", {
-				settigns = {
+				settings = {
 					basedpyright = {
 						analysis = {
 							typeCheckingMode = "basic",
@@ -122,6 +104,23 @@ return {
 					},
 				},
 			})
+
+			-- Enable servers only after all of their configuration is registered.
+			local servers_to_enable = {
+				"lua_ls",
+				"jedi_language_server",
+				"gopls",
+				"terraformls",
+				"texlab",
+				"clangd",
+				"zls",
+				"vtsls",
+				"basedpyright",
+			}
+			for _, server in ipairs(servers_to_enable) do
+				vim.lsp.enable(server)
+			end
+
 			-- 6. Global LSP Keybindings (Modern LspAttach way)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP keybindings and configuration",

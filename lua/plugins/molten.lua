@@ -5,6 +5,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		dir = vim.fn.expand("~/.local/share/nvim/lazy/molten-nvim"),
 		dev = true,
+		lazy = false,
 		build = ":UpdateRemotePlugins",
 		init = function()
 			-- these are examples, not defaults. Please see the readme
@@ -61,14 +62,21 @@ return {
 			},
 			{ "<leader>mr", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
 			{ "<leader>mn", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
-			vim.keymap.set("n", "<leader>mc", function()
-				vim.fn.MoltenDefineCell(vim.fn.line("."), vim.fn.line("."))
-			end, { desc = "Define Molten Cell" }),
+			{
+				"<leader>mc",
+				function()
+					vim.fn.MoltenDefineCell(vim.fn.line("."), vim.fn.line("."))
+				end,
+				desc = "Define Molten Cell",
+			},
 		},
 		dependencies = {
 			"echasnovski/mini.comment",
 			"anuvyklack/hydra.nvim",
 		},
 		event = "VeryLazy",
+		opts = {
+			repl_provider = "molten",
+		},
 	},
 }

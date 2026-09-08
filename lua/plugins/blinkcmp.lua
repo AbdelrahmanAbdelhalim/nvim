@@ -1,18 +1,12 @@
 return {
 	"saghen/blink.cmp",
 	dependencies = { "L3MON4D3/LuaSnip", version = "v2.*" },
-	opts = {
-		snippets = { preset = "luasnip" },
-		-- ensure you have the `snippets` source (enabled by default)
-		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
-		},
-	},
 	version = "1.*",
 
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
+		snippets = { preset = "luasnip" },
 		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
 		-- 'super-tab' for mappings similar to vscode (tab to accept)
 		-- 'enter' for enter to accept

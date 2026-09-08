@@ -8,7 +8,7 @@ local action_state = require("telescope.actions.state")
 local M = {}
 
 -- directory where snippets live
-local SNIPPET_DIR = vim.fn.expand("~/.config/nvim/lua/cp_templates")
+local SNIPPET_DIR = vim.fn.stdpath("config") .. "/lua/cp_templates"
 
 -- load snippets dynamically from filesystem
 local function load_snippets(base_dir)
@@ -143,4 +143,3 @@ function M.insert_snippet(optional_lang)
 end
 
 return M
-

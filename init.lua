@@ -1,15 +1,24 @@
 vim.env.PATH = vim.fn.expand("~/.local/share/nvim/mason/bin") .. ":" .. vim.env.PATH
+
+-- Molten is a Python remote plugin, so Neovim must use the environment that
+-- contains both pynvim and Molten's Jupyter dependencies.
+vim.g.python3_host_prog = vim.fn.expand("~/dev/jupyter_setup/molten/bin/python")
+
 require("screbby")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
+if not vim.uv.fs_stat(lazypath) then
+	local output = vim.fn.system({
 		"git",
 		"clone",
 		"--filter=blob:none",
+		"--branch=stable",
 		"https://github.com/folke/lazy.nvim.git",
 		lazypath,
 	})
+	if vim.v.shell_error ~= 0 then
+		error("Failed to install lazy.nvim:\n" .. output)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -43,11 +52,6 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.tex",
-	command = "silent !pdflatex main.tex",
-})
-
 vim.api.nvim_set_hl(0, "CodeBlock", { bg = "#1f2335" }) -- Example dark background
 vim.api.nvim_set_hl(0, "Dash", { fg = "#3b4261", bold = true })
 
@@ -68,4 +72,3 @@ vim.g.netrw_sizestyle = "h"
 vim.g.netrw_list_hide = "^\\.$"
 vim.opt.clipboard = "unnamedplus"
 vim.g.netrw_sort_by = "size"
-vim.opt.clipboard = ""
